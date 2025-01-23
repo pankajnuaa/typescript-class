@@ -14,7 +14,15 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      "@typescript-eslint/consistent-type-definitions": "off",
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "CallExpression[callee.name='Injectable']",
+          message:
+            "Are you sure you don't want to just create a provider for this?",
+        },
+      ],
+      "@typescript-eslint/consistent-type-definitions": "off", // you ain't the boss of me, don't micromanage me, bro.
       "@angular-eslint/directive-selector": [
         "error",
         {
@@ -40,5 +48,12 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {},
+  },
+  {
+    files: ["**/*.spec.ts"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+      "prefer-const": "off",
+    },
   },
 );
